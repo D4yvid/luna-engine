@@ -1,0 +1,39 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'dev.d4y.engine'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "dev.d4y.engine"
+        minSdk 27
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        externalNativeBuild {
+            ndkBuild {
+                cppFlags ''
+            }
+            cmake {
+                cppFlags ''
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+    cmake {
+        path file('src/main/c/CMakeLists.txt')
+        version '3.22.1'
+    }
+    }
+}
+
+dependencies {
+}
