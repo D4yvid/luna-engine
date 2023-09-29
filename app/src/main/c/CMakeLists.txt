@@ -6,20 +6,18 @@ set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS} -std=c89 -Wall -Werror -Wextra -Wpedanti
 set(CMAKE_SHARED_LINKER_FLAGS
         "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_onCreate")
 
-file(GLOB_RECURSE LunaSources "engine/*.c")
+add_subdirectory(engine)
 
-add_library(native_app_glue STATIC
-        ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
+aux_source_directory(src LunaLauncherSources)
 
 add_library(luna SHARED
-        ${LunaSources})
+        ${LunaLauncherSources})
 
 target_include_directories(luna PRIVATE
         ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue)
 
+target_include_directories(luna PRIVATE
+        engine/src)
+
 target_link_libraries(luna
-        android
-        native_app_glue
-        EGL
-        GLESv1_CM
-        log)
+        LunaCore)

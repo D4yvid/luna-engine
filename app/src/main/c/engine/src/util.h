@@ -14,33 +14,6 @@
 #   define LOGD(...)
 #endif //__DEBUG__
 
-#ifdef true
-#   undef true
-#endif
-
-#ifdef false
-#   undef false
-#endif
-
-#ifdef bool
-#   undef bool
-#endif
-
-typedef enum: char {
-    true = 1,
-    TRUE = 1,
-    false = 0,
-    FALSE = 0
-} bool;
-
-typedef char i8;
-typedef short i16;
-typedef int i32;
-typedef long i64;
-
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
-typedef unsigned long u64;
+#define internal __attribute__((visibility("hidden"))) static
 
 #endif //LUNA_ENGINE_UTIL_H
