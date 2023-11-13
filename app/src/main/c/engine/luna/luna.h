@@ -39,6 +39,8 @@ struct State
     struct App app;
 };
 
+bool LunaTryInit();
+
 bool LunaCreateContext(struct Context *ctx, struct android_app *app);
 
 bool LunaInitApp(struct Context *ctx, struct App *target);

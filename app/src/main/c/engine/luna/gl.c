@@ -36,7 +36,7 @@ bool LunaGLInit(struct Context *ctx) {
     eglChooseConfig(ctx->gl.display, (const int *) &attributes, &ctx->gl.config, 1, &numConfigs);
 
     if (numConfigs <= 0) {
-        LOGE("Cannot find a EGL ctx->gl.config that matches the specified attributes:"
+        LOGE("Cannot find a EGL config that matches the specified attributes:"
              "Red Bits: 8"
              "Green Bits: 8"
              "Blue Bits: 8"
@@ -115,4 +115,3 @@ bool LunaGLDestroy(struct Context *ctx) {
 
     return true;
 }
-

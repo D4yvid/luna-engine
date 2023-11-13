@@ -17,7 +17,7 @@ target_include_directories(luna PRIVATE
         ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue)
 
 target_include_directories(luna PRIVATE
-        engine/src)
+        engine)
 
 target_link_libraries(luna
         LunaCore)

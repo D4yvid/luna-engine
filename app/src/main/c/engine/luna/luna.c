@@ -8,6 +8,11 @@
 #include "util.h"
 #include "gl.h"
 
+bool LunaTryInit()
+{
+
+}
+
 bool LunaCreateContext(struct Context *ctx, struct android_app *app)
 {
     if (!ctx) return false;
@@ -103,7 +108,6 @@ bool LunaDestroyApp(struct App *app)
 internal void LunaHandleAndroidCommand(struct android_app *app, int32_t command)
 {
     struct Context *ctx = app->userData;
-    LOGI("Command %d received", command);
 
     switch (command)
     {
@@ -162,9 +166,6 @@ internal int LunaHandleAndroidInputEvent(struct android_app *app, AInputEvent *e
     {
         case AINPUT_EVENT_TYPE_MOTION:
             LOGI("Motion inside app");
-            break;
-        case AINPUT_EVENT_TYPE_TOUCH_MODE:
-            LOGI("Touch Mode???");
             break;
     }
 

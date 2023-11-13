@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <GLES3/gl3.h>
-#include "luna.h"
-#include "util.h"
+#include "../engine/luna/luna.h"
+#include "../engine/luna/util.h"
 
 int r, g, b;
 
