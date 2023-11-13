@@ -4,54 +4,31 @@
 #include <EGL/egl.h>
 #include <stdbool.h>
 #include <android_native_app_glue.h>
+#include "driver/video/video_driver.h"
 
-struct Context
+struct LunaApplication
 {
-    struct android_app *app;
-    struct App *lunaApp;
+    void *state;
 
-    struct {
-        EGLDisplay display;
-        EGLConfig config;
-        EGLSurface surface;
-        EGLContext context;
+    bool paused, running;
 
-        bool initialized;
-    } gl;
+    bool (*start)(struct LunaApplication *app);
+
+    bool (*update)(struct LunaApplication *app, float delta_time);
+    bool (*render)(struct LunaApplication *app, float delta_time);
+
+    bool (*stop)(struct LunaApplication *app);
 };
 
-struct App
+struct EngineContext
 {
-    struct Context *ctx;
-    bool running, paused;
+    struct android_app *nativeApp;
+    struct LunaApplication application;
 
-    bool (*start)(struct App *app);
-
-    bool (*update)(struct App *app, float delta_time);
-    bool (*render)(struct App *app, float delta_time);
-
-    bool (*stop)(struct App *app);
+    struct VideoDriverContext videoDriver;
 };
 
-struct State
-{
-    struct Context ctx;
-    struct App app;
-};
-
-bool LunaTryInit();
-
-bool LunaCreateContext(struct Context *ctx, struct android_app *app);
-
-bool LunaInitApp(struct Context *ctx, struct App *target);
-
-bool LunaRunApp(struct App *app);
-bool LunaPauseApp(struct App *app);
-bool LunaStopApp(struct App *app);
-
-bool LunaDestroyApp(struct App *app);
-
-int LunaEntryPoint(struct Context *ctx);
+int LunaEntryPoint(struct EngineContext *ctx, struct LunaApplication *application);
 void android_main(struct android_app* state);
 
 #endif //LUNA_ENGINE_LUNA_H

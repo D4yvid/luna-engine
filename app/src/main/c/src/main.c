@@ -5,9 +5,11 @@
 
 int r, g, b;
 
-bool AppStart(struct App *app)
+bool AppStart(struct LunaApplication *app)
 {
     LOGI("AppStart");
+
+    app->running = true;
 
     r = 0;
     g = 0;
@@ -16,14 +18,14 @@ bool AppStart(struct App *app)
     return true;
 }
 
-bool AppStop(struct App *app)
+bool AppStop(struct LunaApplication *app)
 {
     LOGI("AppStop");
 
     return true;
 }
 
-bool AppRender(struct App *app, float delta_time)
+bool AppRender(struct LunaApplication *app, float delta_time)
 {
     glClearColor(
             (float) r / 255.f,
@@ -36,7 +38,7 @@ bool AppRender(struct App *app, float delta_time)
     return true;
 }
 
-bool AppUpdate(struct App *app, float delta_time)
+bool AppUpdate(struct LunaApplication *app, float delta_time)
 {
     r = (r + 1) % 255;
     g = (g + 1) % 255;
@@ -45,20 +47,13 @@ bool AppUpdate(struct App *app, float delta_time)
     return true;
 }
 
-int LunaEntryPoint(struct Context *ctx)
+int LunaEntryPoint(struct EngineContext *ctx, struct LunaApplication *application)
 {
-    struct App app;
+    application->stop = AppStop;
+    application->start = AppStart;
+    application->render = AppRender;
+    application->update = AppUpdate;
+    application->state = NULL;
 
-    app.start = AppStart;
-    app.stop = AppStop;
-    app.render = AppRender;
-    app.update = AppUpdate;
-
-    LunaInitApp(ctx, &app);
-
-    LunaRunApp(&app);
-
-    LunaDestroyApp(&app);
-
-    return 0x00;
+    return 0;
 }

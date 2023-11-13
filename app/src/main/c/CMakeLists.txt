@@ -14,9 +14,7 @@ add_library(luna SHARED
         ${LunaLauncherSources})
 
 target_include_directories(luna PRIVATE
-        ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue)
-
-target_include_directories(luna PRIVATE
+        ${CMAKE_ANDROID_NDK}/sources/android/native_app_glue
         engine)
 
 target_link_libraries(luna
